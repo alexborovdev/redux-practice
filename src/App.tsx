@@ -1,18 +1,41 @@
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, CounterState } from './store/store.ts'
+import { useState } from 'react'
 
 const App = () => {
+  const [currentStep, setCurrentStep] = useState('')
+
   const count = useSelector((state: CounterState) => state.count)
+  const step = useSelector((state: CounterState) => state.step)
   const dispatch = useDispatch<AppDispatch>()
 
   return (
     <>
       <h1>{count}</h1>
-      <button type="button" onClick={() => dispatch({ type: 'INCREMENT' })}>Add 1</button>
-      <button type="button" onClick={() => dispatch({ type: 'INCREMENT_BY', payload: 5 })}>Add 5</button>
-      <button type="button" onClick={() => dispatch({ type: 'DECREMENT_BY', payload: 6 })}>Minus 6</button>
-      <button type="button" onClick={() => dispatch({ type: 'DECREMENT' })}>Minus 1</button>
-      <button type="button" onClick={() => dispatch({ type: 'RESET' })}>Set 0</button>
+      <input
+        type="number"
+        value={currentStep}
+        onChange={(event) => setCurrentStep(event.currentTarget.value)}
+      />
+      <button
+        type="button"
+        onClick={() => dispatch({ type: 'INCREMENT' })}
+      >
+        Add {step}
+      </button>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: 'DECREMENT' })}
+      >
+        Minus {step}
+      </button>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: 'SET_STEP', payload: +currentStep })}
+      >
+        Set step: {currentStep}
+      </button>
+      <button type="button" onClick={() => dispatch({ type: 'RESET' })}>Reset</button>
     </>
   )
 }
