@@ -1,8 +1,8 @@
 import { legacy_createStore as createStore } from 'redux'
 
-type CounterState = { count: number }
+export type CounterState = { count: number }
 
-type Action =
+export type Action =
   | { type: 'INCREMENT' }
   | { type: 'DECREMENT' }
   | { type: 'RESET' }
