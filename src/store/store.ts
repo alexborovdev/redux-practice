@@ -28,3 +28,5 @@ const counterReducer = (state = initialState, action: Action) => {
 }
 
 const store = createStore(counterReducer)
+
+export default store
