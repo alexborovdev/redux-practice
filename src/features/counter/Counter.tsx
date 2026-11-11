@@ -11,11 +11,17 @@ const Counter = () => {
 
   const dispatch = useDispatch<AppDispatch>()
 
+  const isValidStep =
+    currentStep.trim() !== '' &&
+    Number.isSafeInteger(+currentStep) &&
+    +currentStep > 0
+
   return (
     <>
       <h1>{count}</h1>
       <input
         type="number"
+        placeholder="Enter step"
         value={currentStep}
         onChange={(event) => setCurrentStep(event.currentTarget.value)}
       />
@@ -33,11 +39,23 @@ const Counter = () => {
       </button>
       <button
         type="button"
-        onClick={() => dispatch(setStepAC(+currentStep))}
+        disabled={!isValidStep}
+        onClick={() => {
+          dispatch(setStepAC(+currentStep))
+          setCurrentStep('')
+        }}
       >
         Set step: {currentStep}
       </button>
-      <button type="button" onClick={() => dispatch(resetAC())}>Reset</button>
+      <button
+        type="button"
+        onClick={() => {
+          dispatch(resetAC())
+          setCurrentStep('')
+        }}
+      >
+        Reset
+      </button>
     </>
   )
 }
