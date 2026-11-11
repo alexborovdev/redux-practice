@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { incrementAC, decrementAC, setStepAC, resetAC } from './counter.actions.ts'
-import type { AppDispatch } from '../../app/store.ts'
-import type { CounterState } from './counter.types.ts'
+import type { AppDispatch, RootState } from '../../app/store.ts'
 
 const Counter = () => {
   const [currentStep, setCurrentStep] = useState('')
 
-  const count = useSelector((state: CounterState) => state.count)
-  const step = useSelector((state: CounterState) => state.step)
+  const count = useSelector((state: RootState) => state.count)
+  const step = useSelector((state: RootState) => state.step)
+
   const dispatch = useDispatch<AppDispatch>()
 
   return (

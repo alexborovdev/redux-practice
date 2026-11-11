@@ -1,6 +1,17 @@
-export type CounterState = { count: number, step: number }
+import type {
+  incrementAC,
+  decrementAC,
+  setStepAC,
+  resetAC,
+} from './counter.actions.ts'
+
+export type CounterState = {
+  count: number
+  step: number
+}
+
 export type Action =
-  | { type: 'INCREMENT' }
-  | { type: 'DECREMENT' }
-  | { type: 'SET_STEP', payload: number }
-  | { type: 'RESET' }
+  | ReturnType<typeof incrementAC>
+  | ReturnType<typeof decrementAC>
+  | ReturnType<typeof setStepAC>
+  | ReturnType<typeof resetAC>
