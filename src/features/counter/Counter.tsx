@@ -1,8 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
-import type { AppDispatch, CounterState } from './store/store.ts'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { incrementAC, decrementAC, setStepAC, resetAC } from './counter.actions.ts'
+import type { AppDispatch } from '../../app/store.ts'
+import type { CounterState } from './counter.types.ts'
 
-const App = () => {
+const Counter = () => {
   const [currentStep, setCurrentStep] = useState('')
 
   const count = useSelector((state: CounterState) => state.count)
@@ -19,25 +21,25 @@ const App = () => {
       />
       <button
         type="button"
-        onClick={() => dispatch({ type: 'INCREMENT' })}
+        onClick={() => dispatch(incrementAC())}
       >
         Add {step}
       </button>
       <button
         type="button"
-        onClick={() => dispatch({ type: 'DECREMENT' })}
+        onClick={() => dispatch(decrementAC())}
       >
         Minus {step}
       </button>
       <button
         type="button"
-        onClick={() => dispatch({ type: 'SET_STEP', payload: +currentStep })}
+        onClick={() => dispatch(setStepAC(+currentStep))}
       >
         Set step: {currentStep}
       </button>
-      <button type="button" onClick={() => dispatch({ type: 'RESET' })}>Reset</button>
+      <button type="button" onClick={() => dispatch(resetAC())}>Reset</button>
     </>
   )
 }
 
-export default App
+export default Counter
