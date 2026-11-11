@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { incrementAC, decrementAC, setStepAC, resetAC } from './counter.actions.ts'
 import type { AppDispatch, RootState } from '../../app/store.ts'
@@ -16,6 +16,24 @@ const Counter = () => {
     Number.isSafeInteger(+currentStep) &&
     +currentStep > 0
 
+  const onCurrentStepInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCurrentStep(event.currentTarget.value)
+  }
+  const onAddButtonClick = () => {
+    dispatch(incrementAC())
+  }
+  const onMinusButtonClick = () => {
+    dispatch(decrementAC())
+  }
+  const onSetStepButtonClick = () => {
+    dispatch(setStepAC(+currentStep))
+    setCurrentStep('')
+  }
+  const onResetButtonClick = () => {
+    dispatch(resetAC())
+    setCurrentStep('')
+  }
+
   return (
     <>
       <h1>{count}</h1>
@@ -23,36 +41,30 @@ const Counter = () => {
         type="number"
         placeholder="Enter step"
         value={currentStep}
-        onChange={(event) => setCurrentStep(event.currentTarget.value)}
+        onChange={onCurrentStepInputChange}
       />
       <button
         type="button"
-        onClick={() => dispatch(incrementAC())}
+        onClick={onAddButtonClick}
       >
         Add {step}
       </button>
       <button
         type="button"
-        onClick={() => dispatch(decrementAC())}
+        onClick={onMinusButtonClick}
       >
         Minus {step}
       </button>
       <button
         type="button"
         disabled={!isValidStep}
-        onClick={() => {
-          dispatch(setStepAC(+currentStep))
-          setCurrentStep('')
-        }}
+        onClick={onSetStepButtonClick}
       >
         Set step: {currentStep}
       </button>
       <button
         type="button"
-        onClick={() => {
-          dispatch(resetAC())
-          setCurrentStep('')
-        }}
+        onClick={onResetButtonClick}
       >
         Reset
       </button>
